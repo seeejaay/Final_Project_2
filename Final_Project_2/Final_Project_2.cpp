@@ -1,7 +1,7 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
-#include "Final_Project_2.h"
+
 /*
 1. dynamic array +1 DONE
 2. add student info DONE
