@@ -31,7 +31,7 @@ struct student
     string course;
     string year;
 
-    double gradeMath = {};
+    double gradeMath = {}; 
     double gradeScience = {};
     double gradeProg = {};
 
@@ -42,7 +42,7 @@ struct student
 
 void getData(student* stud, int);
 void rating(student* stud, int);
-int main();
+
 
 student getData(student);
 int main()
@@ -124,6 +124,7 @@ void getData(student* stud, int nums) {
         cout << "Enter your grade in Programming: ";
         cin >> stud[i].gradeProg;
         cin.ignore();
+      
     }
 }
 
