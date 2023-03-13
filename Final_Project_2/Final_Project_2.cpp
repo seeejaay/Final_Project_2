@@ -48,12 +48,13 @@ student getData(student);
 int main()
 {
     int in,stdNum,nums,dispChoice;
+    student* stud = nullptr;
 
     cout << "=========================" << endl;
     cout << setw(20) << "GRADE CALCULATOR" << endl;
     cout << "=========================" << endl;
 
-    student* stud = nullptr;
+    
 
 
     cout << "1. Add Student Info" << endl << "2. Display Student Info" << endl <<"3. Exit" <<endl<< "Choice: ";
@@ -75,12 +76,18 @@ int main()
 
         break;
     case 2:
-
-        cout << "1. Search by Student Number" << endl << "2. Display All" << endl << "Choice: ";
-        cin >> dispChoice; 
-        cin.ignore();
-
-        cout << stud[0].gradeMath << " " << stud[0].ratingMath;
+        if(stud == nullptr)
+        {
+            cout << "No Records yet!";
+            break;
+        }
+        else 
+        {
+            cout << "1. Search by Student Number" << endl << "2. Display All" << endl << "Choice: ";
+            cin >> dispChoice;
+            cin.ignore();
+        }
+        
 
         break;
     default:
