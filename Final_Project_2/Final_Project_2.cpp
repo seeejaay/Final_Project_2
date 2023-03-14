@@ -21,16 +21,14 @@ struct student
     double gradeScience = {};
     double gradeProg = {};
     double average = {};
-
+    double gpa = {};
 
 };
 
 void getData(student* stud, int);
 void displayAll(student* stud, int);
 void rating(student* stud, int);
-
-
-double assignGPA(student* stud, int);
+void assignGPA(student* stud, int);
 
 int nums;
 
@@ -63,7 +61,7 @@ int main()
 
             getData(stud, nums);
             rating(stud, nums);
-
+            assignGPA(stud, nums);
             break;
         case 2:
             if (stud == nullptr)
@@ -91,7 +89,7 @@ int main()
                                 << "Math Grade: " << stud[i].gradeMath << " " << stud[i].ratingMath << endl
                                 << "Science Grade: " << stud[i].gradeScience << " " << stud[i].ratingScience << endl
                                 << "Programming Grade: " << stud[i].gradeProg << " " << stud[i].ratingProg << endl
-                                << "GPA: " << assignGPA(stud, nums) << endl << endl;
+                                << "GPA: " <<stud[i].gpa << endl << endl;
                         }
                     }
                 }
@@ -161,7 +159,7 @@ void displayAll(student* stud, int nums)
             << "Math Grade: " << stud[i].gradeMath << " " << stud[i].ratingMath << endl
             << "Science Grade: " << stud[i].gradeScience << " " << stud[i].ratingScience << endl
             << "Programming Grade: " << stud[i].gradeProg << " " << stud[i].ratingProg << endl
-            << "GPA: " << assignGPA(stud, nums) << endl <<endl;
+            << "GPA: " <<  stud[i].gpa<< endl <<endl;
     }
 }
 
@@ -189,7 +187,7 @@ void rating(student* stud, int nums)
     }
 }
 
-double assignGPA(student* stud,int nums)
+void assignGPA(student* stud,int nums)
 {
     double gpa=0;
     for (int i = 0; i < nums; i++) {
@@ -198,37 +196,40 @@ double assignGPA(student* stud,int nums)
         
         if (stud[i].average >= 97 && stud[i].average <=100)
         {
-            gpa = 4.0;
+            stud[i].gpa = 4.0;
         }
         else if (stud[i].average >= 93 && stud[i].average <= 96)
         {
-            gpa = 3.5;
+            stud[i].gpa = 3.5;
         }
         else if (stud[i].average >= 89 && stud[i].average <= 92)
         {
-            gpa = 3.0;
+            stud[i].gpa = 3.0;
         }
         else if (stud[i].average >= 85 && stud[i].average <= 88)
         {
-            gpa = 2.5;
+            stud[i].gpa = 2.5;
         }
         else if (stud[i].average >= 80 && stud[i].average <= 84)
         {
-            gpa = 2.0;
+            stud[i].gpa = 2.0;
         }
         else if (stud[i].average >= 75 && stud[i].average <= 79)
         {
-            gpa = 1.5;
+            stud[i].gpa = 1.5;
         }
         else if(stud[i].average >= 70 && stud[i].average <= 74)
         {
-            gpa = 1.0;
+            stud[i].gpa = 1.0;
         }
-        else { gpa = 0.5; }
+        else if (stud[i].average <=69)
+        {
+            stud[i].gpa = 0.5;
+        }
     }
 
 
-    return gpa;
+    
 }
 
 
