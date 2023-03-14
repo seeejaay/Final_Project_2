@@ -1,99 +1,123 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
-
-/*
-1. dynamic array +1 DONE
-2. add student info DONE
- -name,std#, course& year, 3 subjects math, science ,programming DONE
-3. view student info
- - search using std# DONE
- - display all DONE
-display if failed or pass DONE
- gpa converted to feu grading system DONE
- 97-100 = 4.0
- 93-96 = 3.5
- 89-93 = 3.0
- 85 - 88 = 2.5
- 80 - 84 = 2.0
- 75-79 = 1.5
- 70-75 = 1.0
- < 70 = 0.5 Failed
- */
+#include <algorithm>
+#include <windows.h>
 
 using namespace std;
 
-
 struct student
 {
-    string name;
     int studentNum = {};
+
+    string name;
     string course;
     string year;
+    string ratingMath;
+    string ratingScience;
+    string ratingProg;
 
     double gradeMath = {}; 
     double gradeScience = {};
     double gradeProg = {};
+    double average = {};
 
-    string ratingMath;
-    string ratingScience;
-    string ratingProg;
+
 };
 
 void getData(student* stud, int);
+void displayAll(student* stud, int);
 void rating(student* stud, int);
 
 
-student getData(student);
+double assignGPA(student* stud, int);
+
+int nums;
+
 int main()
 {
-    int in,stdNum,nums,dispChoice;
+    string conts;
+    int in,stdNum,dispChoice;
     student* stud = nullptr;
 
-    cout << "=========================" << endl;
-    cout << setw(20) << "GRADE CALCULATOR" << endl;
-    cout << "=========================" << endl;
-
-    
-
-
-    cout << "1. Add Student Info" << endl << "2. Display Student Info" << endl <<"3. Exit" <<endl<< "Choice: ";
-    cin >> in; 
-    cin.ignore();
-
-    switch (in)
-    {
-    case 1:
+    do {
         
-        cout << "How many students? ";
-        cin >> stdNum;
-        cin.ignore(); 
-        nums = stdNum + 1;
-        stud = new student[nums];
-        
-        getData(stud, nums);
-        rating(stud, nums);
+        system("cls");
+        cout << "=========================" << endl;
+        cout << setw(20) << "GRADE CALCULATOR" << endl;
+        cout << "=========================" << endl;
 
-        break;
-    case 2:
-        if(stud == nullptr)
+        cout << "1. Add Student Info" << endl << "2. Display Student Info" << endl << "3. Exit" << endl << "Choice: ";
+        cin >> in;
+        cin.ignore();
+
+        switch (in)
         {
-            cout << "No Records yet!";
+        case 1:
+
+            cout << "How many students? ";
+            cin >> stdNum;
+            cin.ignore();
+            nums = stdNum + 1;
+            stud = new student[nums];
+
+            getData(stud, nums);
+            rating(stud, nums);
+
+            break;
+        case 2:
+            if (stud == nullptr)
+            {
+                cout << "No Records yet!" << endl;
+                break;
+            }
+            else
+            {
+                int searchNum;
+                cout << "1. Search by Student Number" << endl << "2. Display All" << endl << "Choice: ";
+                cin >> dispChoice;
+                cin.ignore();
+                    
+                if (dispChoice == 1) {
+                    cout << "Enter student number: ";
+                    cin >> searchNum;
+                    cin.ignore();
+                    for (int i = 0; i < nums; i++)
+                    {
+                        if (searchNum == stud[i].studentNum)
+                        {
+                            cout << fixed << setprecision(2) << "Name: " << stud[i].name << endl << "Student Number: " << stud[i].studentNum << endl
+                                << "Course and Year: " << stud[i].course << " " << stud[i].year << endl
+                                << "Math Grade: " << stud[i].gradeMath << " " << stud[i].ratingMath << endl
+                                << "Science Grade: " << stud[i].gradeScience << " " << stud[i].ratingScience << endl
+                                << "Programming Grade: " << stud[i].gradeProg << " " << stud[i].ratingProg << endl
+                                << "GPA: " << assignGPA(stud, nums) << endl << endl;
+                        }
+                    }
+                }
+                else if (dispChoice == 2) {
+                    displayAll(stud, nums);
+                }
+                else 
+                { 
+                    cout << " INAVALID";
+                }
+            }
+            break;
+        case 3: 
+            exit(1);
+            break;
+        default:
+            cout << "INVALID!";
+
             break;
         }
-        else 
-        {
-            cout << "1. Search by Student Number" << endl << "2. Display All" << endl << "Choice: ";
-            cin >> dispChoice;
-            cin.ignore();
-        }
-        
 
-        break;
-    default:
-        break;
-    }
-    
+        cout << "Do you want to continue? ";
+        getline(cin, conts);
+        transform(conts.begin(), conts.end(), conts.begin(), ::toupper);
+
+    } while (conts == "YES" || conts == "Y");
 }
 
 
@@ -128,6 +152,19 @@ void getData(student* stud, int nums) {
     }
 }
 
+void displayAll(student* stud, int nums)
+{
+    for(int i =0; i < nums; i++)
+    {
+        cout << fixed << setprecision(2)<< "Name: " << stud[i].name << endl << "Student Number: " << stud[i].studentNum << endl
+            << "Course and Year: " << stud[i].course << " " << stud[i].year << endl
+            << "Math Grade: " << stud[i].gradeMath << " " << stud[i].ratingMath << endl
+            << "Science Grade: " << stud[i].gradeScience << " " << stud[i].ratingScience << endl
+            << "Programming Grade: " << stud[i].gradeProg << " " << stud[i].ratingProg << endl
+            << "GPA: " << assignGPA(stud, nums) << endl <<endl;
+    }
+}
+
 void rating(student* stud, int nums)
 {
     for (int i = 0; i < nums; i++)
@@ -151,3 +188,47 @@ void rating(student* stud, int nums)
         else { stud[i].ratingProg = "FAIL"; }
     }
 }
+
+double assignGPA(student* stud,int nums)
+{
+    double gpa=0;
+    for (int i = 0; i < nums; i++) {
+       
+        stud[i].average = (stud[i].gradeMath + stud[i].gradeScience + stud[i].gradeProg) / 3;
+        
+        if (stud[i].average >= 97 && stud[i].average <=100)
+        {
+            gpa = 4.0;
+        }
+        else if (stud[i].average >= 93 && stud[i].average <= 96)
+        {
+            gpa = 3.5;
+        }
+        else if (stud[i].average >= 89 && stud[i].average <= 92)
+        {
+            gpa = 3.0;
+        }
+        else if (stud[i].average >= 85 && stud[i].average <= 88)
+        {
+            gpa = 2.5;
+        }
+        else if (stud[i].average >= 80 && stud[i].average <= 84)
+        {
+            gpa = 2.0;
+        }
+        else if (stud[i].average >= 75 && stud[i].average <= 79)
+        {
+            gpa = 1.5;
+        }
+        else if(stud[i].average >= 70 && stud[i].average <= 74)
+        {
+            gpa = 1.0;
+        }
+        else { gpa = 0.5; }
+    }
+
+
+    return gpa;
+}
+
+
