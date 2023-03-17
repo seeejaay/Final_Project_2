@@ -39,7 +39,6 @@ int main()
     student* stud = nullptr;
 
     do {
-        
         system("cls");
         cout << "=========================" << endl;
         cout << setw(20) << "GRADE CALCULATOR" << endl;
