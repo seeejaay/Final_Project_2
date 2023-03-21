@@ -25,10 +25,10 @@ struct student
 
 };
 
-void getData(student* stud, int);
-void displayAll(student* stud, int);
-void rating(student* stud, int);
-void assignGPA(student* stud, int);
+void getData(student* stud, int); //get the data of the students
+void displayAll(student* stud, int); // displays all students and their records
+void rating(student* stud, int); // determines if the student passses or fails
+void assignGPA(student* stud, int); // assigns the GPA according to FEU Tech Grading System
 
 int nums;
 
@@ -36,10 +36,10 @@ int main()
 {
     string conts;
     int in,stdNum,dispChoice;
+    //used pointer to be able to create a dynamic number of students
     student* stud = nullptr;
 
     do {
-        
         system("cls");
         cout << "=========================" << endl;
         cout << setw(20) << "GRADE CALCULATOR" << endl;
@@ -57,6 +57,7 @@ int main()
             cin >> stdNum;
             cin.ignore();
             nums = stdNum + 1;
+            //dynamic number of student
             stud = new student[nums];
 
             getData(stud, nums);
@@ -75,11 +76,12 @@ int main()
                 cout << "1. Search by Student Number" << endl << "2. Display All" << endl << "Choice: ";
                 cin >> dispChoice;
                 cin.ignore();
-                    
+                //lets the user choose if they want to search using student number or just display all   
                 if (dispChoice == 1) {
                     cout << "Enter student number: ";
                     cin >> searchNum;
                     cin.ignore();
+                    //search for the corresponding student number
                     for (int i = 0; i < nums; i++)
                     {
                         if (searchNum == stud[i].studentNum)
@@ -94,7 +96,7 @@ int main()
                     }
                 }
                 else if (dispChoice == 2) {
-                    displayAll(stud, nums);
+                    displayAll(stud, nums); //function call to display all
                 }
                 else 
                 { 
@@ -103,23 +105,26 @@ int main()
             }
             break;
         case 3: 
+            //exit program
             exit(1);
             break;
         default:
+            //invalid input 
             cout << "INVALID!";
 
             break;
         }
-
+        //asks if you want to continue the program
         cout << "Do you want to continue? ";
         getline(cin, conts);
+        //convert input conts to uppercase
         transform(conts.begin(), conts.end(), conts.begin(), ::toupper);
 
     } while (conts == "YES" || conts == "Y");
 }
 
 
-void getData(student* stud, int nums) {
+void getData(student* stud, int nums) { //asks the user to input the data required
     for (int i = 0; i < nums; i++)
     {
         cout << "Enter name " << i + 1 << ": ";
@@ -135,22 +140,37 @@ void getData(student* stud, int nums) {
         cout << "Enter Your Year level: ";
         getline(cin, stud[i].year);
 
+        entergrade:
         cout << "Enter your grade in math: ";
         cin >> stud[i].gradeMath;
         cin.ignore();
 
+        if(stud[i].gradeMath > 100 )
+        {
+            goto entergrade;
+        }
+        entergradeScie:
         cout << "Enter your grade in Science: ";
         cin >> stud[i].gradeScience;
         cin.ignore();
-
+        if (stud[i].gradeScience > 100)
+        {
+            goto entergradeScie;
+        }
+        entergradeProg:
         cout << "Enter your grade in Programming: ";
         cin >> stud[i].gradeProg;
         cin.ignore();
-      
+        if (stud[i].gradeProg > 100)
+        {
+            goto entergradeProg;
+        }
+        cout << endl;
+        
     }
 }
 
-void displayAll(student* stud, int nums)
+void displayAll(student* stud, int nums) //displays all records
 {
     for(int i =0; i < nums; i++)
     {
@@ -163,23 +183,23 @@ void displayAll(student* stud, int nums)
     }
 }
 
-void rating(student* stud, int nums)
+void rating(student* stud, int nums) //assign if grade is passed or failed
 {
     for (int i = 0; i < nums; i++)
     {
-        if (stud[i].gradeMath >= 70)
+        if (stud[i].gradeMath >= 70 && stud[i].gradeMath <=100)
         {
             stud[i].ratingMath = "PASS";
         }
         else { stud[i].ratingMath = "FAIL"; }
 
-        if (stud[i].gradeScience >= 70)
+        if (stud[i].gradeScience >= 70 && stud[i].gradeScience <= 100)
         {
             stud[i].ratingScience = "PASS";
         }
         else { stud[i].ratingScience = "FAIL"; }
 
-        if (stud[i].gradeProg >= 70)
+        if (stud[i].gradeProg >= 70 && stud[i].gradeProg <= 100)
         {
             stud[i].ratingProg = "PASS";
         }
@@ -187,7 +207,7 @@ void rating(student* stud, int nums)
     }
 }
 
-void assignGPA(student* stud,int nums)
+void assignGPA(student* stud,int nums) //GPA of student
 {
     double gpa=0;
     for (int i = 0; i < nums; i++) {
@@ -227,9 +247,7 @@ void assignGPA(student* stud,int nums)
             stud[i].gpa = 0.5;
         }
     }
-
-
-    
+ 
 }
 
 
