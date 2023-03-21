@@ -136,7 +136,6 @@ void getData(student* stud, int nums) { //asks the user to input the data requir
         cin >> stud[i].studentNum;
         cin.ignore();
         cout << "-------------------------" << endl;
-        
         cout << "Enter your course: ";
         getline(cin, stud[i].course);
 
