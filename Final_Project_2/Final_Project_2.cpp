@@ -38,7 +38,7 @@ int main()
     int in,stdNum,dispChoice;
     //used pointer to be able to create a dynamic number of students
     student* stud = nullptr;
-
+    start:
     do {
         system("cls");
         cout << "=========================" << endl;
@@ -111,8 +111,9 @@ int main()
             break;
         default:
             //invalid input 
-            cout << "INVALID!";
-
+            cout << "INVALID!" << endl;
+            system("cls");
+            goto start;
             break;
         }
         //asks if you want to continue the program
