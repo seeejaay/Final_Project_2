@@ -247,7 +247,7 @@ void assignGPA(student* stud,int nums) //GPA of student
         {
             stud[i].gpa = 1.0;
         }
-        else if (stud[i].average <=69)
+        else if (stud[i].average >= 0 && stud[i].average <=69 )
         {
             stud[i].gpa = 0.5;
         }
