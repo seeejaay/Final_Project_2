@@ -52,10 +52,11 @@ int main()
         switch (in)
         {
         case 1:
-
+            cout << "=========================" << endl;
             cout << "How many students? ";
             cin >> stdNum;
             cin.ignore();
+            cout << "=========================" << endl;
             nums = stdNum + 1;
             //dynamic number of student
             stud = new student[nums];
@@ -127,25 +128,27 @@ int main()
 void getData(student* stud, int nums) { //asks the user to input the data required
     for (int i = 0; i < nums; i++)
     {
+        
         cout << "Enter name " << i + 1 << ": ";
         getline(cin, stud[i].name);
         
         cout << "Enter student number: ";
         cin >> stud[i].studentNum;
         cin.ignore();
-
+        cout << "-------------------------" << endl;
+        
         cout << "Enter your course: ";
         getline(cin, stud[i].course);
 
         cout << "Enter Your Year level: ";
         getline(cin, stud[i].year);
-
+        cout << "-------------------------" << endl;
         entergrade:
         cout << "Enter your grade in math: ";
         cin >> stud[i].gradeMath;
         cin.ignore();
 
-        if(stud[i].gradeMath > 100 )
+        if(stud[i].gradeMath > 100 || stud[i].gradeMath <0) //check if inputed grade is greater than 100 or less than 0
         {
             goto entergrade;
         }
@@ -153,7 +156,8 @@ void getData(student* stud, int nums) { //asks the user to input the data requir
         cout << "Enter your grade in Science: ";
         cin >> stud[i].gradeScience;
         cin.ignore();
-        if (stud[i].gradeScience > 100)
+
+        if (stud[i].gradeScience > 100 || stud[i].gradeScience < 0) //check if inputed grade is greater than 100 or less than 0
         {
             goto entergradeScie;
         }
@@ -161,11 +165,12 @@ void getData(student* stud, int nums) { //asks the user to input the data requir
         cout << "Enter your grade in Programming: ";
         cin >> stud[i].gradeProg;
         cin.ignore();
-        if (stud[i].gradeProg > 100)
+
+        if (stud[i].gradeProg > 100 || stud[i].gradeProg < 0) //check if inputed grade is greater than 100 or less than 0
         {
             goto entergradeProg;
         }
-        cout << endl;
+        cout << "=========================" << endl;
         
     }
 }
