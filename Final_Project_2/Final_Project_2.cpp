@@ -26,9 +26,10 @@ struct student
 };
 
 void getData(student* stud, int); //get the data of the students
-void displayAll(student* stud, int); // displays all students and their records
 void rating(student* stud, int); // determines if the student passses or fails
 void assignGPA(student* stud, int); // assigns the GPA according to FEU Tech Grading System
+
+void displayAll(student* stud, int); // displays all students and their records
 
 int nums;
 
@@ -60,10 +61,10 @@ int main()
             nums = stdNum + 1;
             //dynamic number of student
             stud = new student[nums];
-
             getData(stud, nums);
+            /*
             rating(stud, nums);
-            assignGPA(stud, nums);
+            assignGPA(stud, nums);*/
             break;
         case 2:
             if (stud == nullptr)
@@ -83,20 +84,30 @@ int main()
                     cin >> searchNum;
                     cin.ignore();
                     //search for the corresponding student number
+                   
+                    rating(stud, nums);
+                    assignGPA(stud, nums);
                     for (int i = 0; i < nums; i++)
                     {
                         if (searchNum == stud[i].studentNum)
                         {
+                            cout << "=================================================" << endl;
                             cout << fixed << setprecision(2) << "Name: " << stud[i].name << endl << "Student Number: " << stud[i].studentNum << endl
+                                << "=================================================" << endl
                                 << "Course and Year: " << stud[i].course << " " << stud[i].year << endl
-                                << "Math Grade: " << stud[i].gradeMath << " " << stud[i].ratingMath << endl
-                                << "Science Grade: " << stud[i].gradeScience << " " << stud[i].ratingScience << endl
-                                << "Programming Grade: " << stud[i].gradeProg << " " << stud[i].ratingProg << endl
-                                << "GPA: " <<stud[i].gpa << endl << endl;
+                                << "=================================================" << endl
+                                << "Math Grade: " << setw(14) << stud[i].gradeMath << " " << setw(13) << "Remarks: " << stud[i].ratingMath << endl
+                                << "Science Grade: " << setw(11) << stud[i].gradeScience << " " << setw(13) << "Remarks: " << stud[i].ratingScience << endl
+                                << "Programming Grade: " << setw(7) << stud[i].gradeProg << " " << setw(13) << "Remarks: " << stud[i].ratingProg << endl
+                                << "=================================================" << endl
+                                << "GPA: " << stud[i].gpa << endl << endl;
                         }
                     }
                 }
                 else if (dispChoice == 2) {
+                    
+                    rating(stud, nums);
+                    assignGPA(stud, nums);
                     displayAll(stud, nums); //function call to display all
                 }
                 else 
@@ -179,13 +190,18 @@ void displayAll(student* stud, int nums) //displays all records
 {
     for(int i =0; i < nums; i++)
     {
-        cout << fixed << setprecision(2)<< "Name: " << stud[i].name << endl << "Student Number: " << stud[i].studentNum << endl
+        cout << "=================================================" << endl;
+        cout << fixed << setprecision(2) << "Name: " << stud[i].name << endl << "Student Number: " << stud[i].studentNum << endl
+            << "=================================================" << endl
             << "Course and Year: " << stud[i].course << " " << stud[i].year << endl
-            << "Math Grade: " << stud[i].gradeMath << " " << stud[i].ratingMath << endl
-            << "Science Grade: " << stud[i].gradeScience << " " << stud[i].ratingScience << endl
-            << "Programming Grade: " << stud[i].gradeProg << " " << stud[i].ratingProg << endl
-            << "GPA: " <<  stud[i].gpa<< endl <<endl;
+            << "=================================================" << endl
+            << "Math Grade: " << setw(14) << stud[i].gradeMath << " " << setw(13) << "Remarks: " << stud[i].ratingMath << endl
+            << "Science Grade: " << setw(11) << stud[i].gradeScience << " " << setw(13) << "Remarks: " << stud[i].ratingScience << endl
+            << "Programming Grade: " << setw(7) << stud[i].gradeProg << " " << setw(13) << "Remarks: " << stud[i].ratingProg << endl
+            << "=================================================" << endl
+            << "GPA: " << stud[i].gpa << endl << endl;
     }
+    
 }
 
 void rating(student* stud, int nums) //assign if grade is passed or failed
